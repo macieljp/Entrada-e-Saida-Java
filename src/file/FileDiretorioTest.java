@@ -6,6 +6,7 @@
 package file;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -15,10 +16,27 @@ public class FileDiretorioTest {
 
     public static void main(String[] args) {
 
-        File diretorio = new File("folder");
-        boolean mkdir = diretorio.mkdir();
+        File diretorio = new File("folder"); //criar obj diretorio
+        boolean mkdir = diretorio.mkdir(); //caso diretorio ja esteja criado retorna false
         System.out.println("Diretorio criado: " + mkdir);
-        
+
+        File arquivo = new File(diretorio, "arquivo.txt");
+
+        try {
+            boolean newFile = arquivo.createNewFile();
+            System.out.println("Arquivo criado? " + newFile);
+
+            File arquivoRenomado = new File("arquivo renomado.txt");
+            boolean renamed = arquivo.renameTo(arquivoRenomado); //renomeia arquivo
+            System.out.println("Renomeado? " + renamed);
+
+            File diretorioRenomado = new File("diretorioRenomado"); // 
+            boolean diretorioRenamed = diretorio.renameTo(diretorioRenomado);
+            System.out.println("Diretorio renomado? " + diretorioRenamed); //renomeia diretorio
+
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
 
         buscaArquivos();
 
